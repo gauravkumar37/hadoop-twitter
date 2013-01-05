@@ -10,11 +10,11 @@ More analytics will continue to be added as I work on developing this project. Y
 
 Getting Started
 ---------------
-See https://github.com/gauravkumar37/hadoop-twitter/wiki/Getting-Started
+See [here](https://github.com/gauravkumar37/hadoop-twitter/wiki/Getting-Started)
 
 Building and Deploying
 ----------------------
-See https://github.com/gauravkumar37/hadoop-twitter/wiki/Building-and-Deploying
+See [here](https://github.com/gauravkumar37/hadoop-twitter/wiki/Building-and-Deploying)
 
 Legal
 -----
