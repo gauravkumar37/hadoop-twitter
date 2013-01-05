@@ -4,9 +4,9 @@ Hadoop Twitter Analytics
 Hadoop &amp; BigData magic applied on tweets
 --------------------------------------------
 
-Hadoop Twitter Analytics aims to develop a solution for analysing tweets using Haddop & its ecosystem.
+Hadoop Twitter Analytics aims to develop a solution for analysing tweets using Hadoop & its ecosystem.
 This project currently contains fetching the Twitter IDs of those users whose statuses have been retweeted the most by the user whose tweets are being analyzed.
-Multiple analytics will continue to be added as I work on developing this project. You are very welcome to join me in this endeavour.
+More analytics will continue to be added as I work on developing this project. You are very welcome to join me in this endeavour.
 
 Getting Started
 ---------------
