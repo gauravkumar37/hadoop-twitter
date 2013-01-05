@@ -1,5 +1,6 @@
 package com.twitter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,9 @@ import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.hadoop.twitter.TweetsMapper;
+import com.github.hadoop.twitter.TweetsReducer;
 
 /**
  * MRUnit class for testing MR classes
