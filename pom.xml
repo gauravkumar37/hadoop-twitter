@@ -19,7 +19,7 @@
 				<artifactId>maven-hadoop-plugin</artifactId>
 				<version>0.20.1</version>
 				<configuration>
-					<hadoopHome>D:\Software\JAVA\Cloud + BigData\hadoop\hadoop-1.0.4-bin</hadoopHome>
+					<hadoopHome>${HADOOP_INSTALL}</hadoopHome>
 				</configuration>
 			</plugin>
 		</plugins>
