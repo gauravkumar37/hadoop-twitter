@@ -1,4 +1,4 @@
-package com.github.hadoop.twitter;
+package com.wordpress.technoturd.twitter;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -22,7 +22,7 @@ public class TweetsAnalyzer {
 
 		Job job = new Job();
 		job.setJarByClass(TweetsAnalyzer.class);
-		job.setJobName("Tweets Analyzer");
+		job.setJobName("Hadoop Twitter Analytics");
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));

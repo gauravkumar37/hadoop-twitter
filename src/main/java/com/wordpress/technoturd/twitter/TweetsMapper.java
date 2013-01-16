@@ -1,4 +1,4 @@
-package com.github.hadoop.twitter;
+package com.wordpress.technoturd.twitter;
 
 import java.io.IOException;
 
