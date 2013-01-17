@@ -11,8 +11,10 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import org.apache.log4j.Logger;
 
 public class TweetsAnalyzerDriver extends Configured implements Tool {
+	static final Logger LOGGER = Logger.getLogger(TweetsAnalyzerDriver.class);
 
 	@Override
 	public int run(String[] args) throws Exception {
@@ -22,11 +24,17 @@ public class TweetsAnalyzerDriver extends Configured implements Tool {
 
 		Path input = new Path("data/csv");
 		Path output = new Path("target/output");
+		LOGGER.debug("Using input path: " + input);
+		LOGGER.debug("Using output path: " + output);
+
 		FileSystem fs = FileSystem.getLocal(conf);
-		if (fs.exists(output) && !fs.delete(output, true)) {
-			System.err.println("Unable to delete output directory: " + output);
-			return 1;
-		}
+		if (fs.exists(output))
+			if (fs.delete(output, true))
+				LOGGER.info("Output directory: " + output + " deleted.");
+			else {
+				LOGGER.fatal("Unable to delete output directory: " + output);
+				return 1;
+			}
 
 		FileInputFormat.addInputPath(job, input);
 		FileOutputFormat.setOutputPath(job, output);
