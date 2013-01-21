@@ -1,20 +1,21 @@
 package com.wordpress.technoturd.twitter;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counter;
+import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.wordpress.technoturd.twitter.TweetsMapper;
-import com.wordpress.technoturd.twitter.TweetsReducer;
+import com.wordpress.technoturd.twitter.TweetsMapper.Tweet;
 
 /**
  * MRUnit class for testing MR classes
@@ -65,6 +66,16 @@ public class TweetsMapperTest {
 				new Text(
 					"\"tweet_id\",\"in_reply_to_status_id\",\"in_reply_to_user_id\",\"retweeted_status_id\",\"retweeted_status_user_id\",\"timestamp\",\"source\",\"text\",\"expanded_urls\""));
 		mapDriver.runTest();
+	}
+
+	@Test
+	public void testMapperMalformedInput() {
+		mapDriver.withInput(new LongWritable(1), new Text("malformed text"));
+		Counters counters = new Counters();
+		mapDriver.withCounters(counters);
+		mapDriver.runTest();
+		Counter counter = counters.findCounter(Tweet.CORRUPT_RECORDS);
+		Assert.assertEquals("Malformed Input", counter.getValue(), 1L);
 	}
 
 	@Test
