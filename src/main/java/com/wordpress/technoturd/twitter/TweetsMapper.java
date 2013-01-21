@@ -6,6 +6,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.log4j.Logger;
 
 import au.com.bytecode.opencsv.CSVParser;
 
@@ -17,6 +18,11 @@ import au.com.bytecode.opencsv.CSVParser;
  * @author GauravKumar
  */
 public class TweetsMapper extends Mapper<LongWritable, Text, LongWritable, IntWritable> {
+	static final Logger LOGGER = Logger.getLogger(TweetsMapper.class);
+
+	enum Tweet {
+		CORRUPT_RECORDS
+	}
 
 	@Override
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -30,17 +36,17 @@ public class TweetsMapper extends Mapper<LongWritable, Text, LongWritable, IntWr
 			try {
 				retweetedUserId = csvParser.parseLine(value.toString() + "\"")[4];
 			} catch (Exception ex) {
-				System.out.println("Even after appending an extra \", error still persists. Skipping record with key:"
-					+ key.get() + " and value:" + value.toString());
-				e.printStackTrace();
+				LOGGER.error("Even after appending an extra \", error still persists. Skipping record with key:" + key.get()
+					+ " and value:" + value.toString());
+				context.setStatus("Detected corrupt csv record. See logs for more details.");
+				context.getCounter(Tweet.CORRUPT_RECORDS).increment(1);
 			}
 		}
 		try {
 			if (retweetedUserId != null && !retweetedUserId.equals(""))
 				context.write(new LongWritable(Long.parseLong(retweetedUserId)), new IntWritable(1));
 		} catch (Exception e) {
-			System.out.println("Error in converting:\n" + retweetedUserId);
-			e.printStackTrace();
+			LOGGER.error("Error in converting:\n" + retweetedUserId, e);
 		}
 	}
 }
