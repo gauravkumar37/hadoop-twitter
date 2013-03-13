@@ -1,7 +1,7 @@
 Hadoop Twitter Analytics
 ==============
 
-Hadoop &amp; BigData magic applied on tweets
+Hadoop &amp; Big Data magic applied on tweets
 --------------------------------------------
 
 Hadoop Twitter Analytics aims to develop a solution for analysing tweets using Hadoop & its ecosystem.
